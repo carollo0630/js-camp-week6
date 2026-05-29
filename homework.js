@@ -27,7 +27,12 @@ async function getProducts() {
 	// 1. 使用 fetch() 發送 GET 請求
 	// 2. 使用 response.json() 解析回應
 	// 3. 回傳 data.products
+	const response = await fetch(`${BASE_URL}/api/livejs/v1/customer/${API_PATH}/products`);
+	const data = await response.json();
+	//console.log(data);
+	return data.products;
 }
+
 
 /**
  * 2. 取得購物車列表
@@ -35,7 +40,16 @@ async function getProducts() {
  */
 async function getCart() {
 	// 請實作此函式
+	const response = await fetch(`${BASE_URL}/api/livejs/v1/customer/${API_PATH}/carts`);
+	const data = await response.json();
+	//console.log(data);
+	return {
+		carts: data.carts,
+		total: data.total,
+		finalTotal: data.finalTotal,
+	};
 }
+
 
 /**
  * 3. 錯誤處理：當 API 回傳錯誤時，回傳錯誤訊息
