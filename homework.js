@@ -62,8 +62,29 @@ async function getProductsSafe() {
 	// 2. 檢查 response.ok 判斷是否成功
 	// 3. 成功回傳 { success: true, data: [...] }
 	// 4. 失敗回傳 { success: false, error: '錯誤訊息' }
-}
+	try{
+		const response = await fetch(`${BASE_URL}/api/livejs/v1/customer/${API_PATH}/products`);
+		const data = await response.json();
 
+		if (!response.ok) {
+			return{
+				success: false,
+				error:data.message,
+			};
+		}
+		
+		return {
+			success: true,
+			data: data.products
+		};
+	}
+	catch(error){
+		return {
+			success: false,
+			error:error.message
+		};
+}
+}
 // ========================================
 // 任務二：POST 請求 - 購物車操作
 // ========================================
